@@ -11,11 +11,19 @@ git clone https://github.com/<LINK_TO_YOUR_REPO>
 then installing within the repo directory:
 
 ```
-pip3 install .
+cd autopilot
+sudo pip3 install .
+```
+
+Once autopilot has been installed, you will need to reboot the RPi to restart the webserver
+
+```
+sudo reboot
 ```
 
 Please clone your repository in the home area of the Pi, and make sure to delete it afterwards and uninstall your package:
 
 ```
-pip3 uninstall autopilot
+sudo pip3 uninstall autopilot
 ``` 
+

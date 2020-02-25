@@ -21,6 +21,8 @@ Once autopilot has been installed, you will need to reboot the RPi to restart th
 sudo reboot
 ```
 
+After rebooting turn your car off and on again.
+
 Please clone your repository in the home area of the Pi, and make sure to delete it afterwards and uninstall your package:
 
 ```

@@ -46,7 +46,6 @@ class AutoPilot:
         Stops autopilot
         :return:
         """
-        self.back_wheels.speed = 0
         self._started = False
         self._terminate = True
         if self._thread is not None:
@@ -68,10 +67,12 @@ class AutoPilot:
             # !! End of machine learning !!
 
             # Do not allow angle or speed to go out of range
-            angle = max(min(angle, self.front_wheels._min_angle), self.front_wheels._max_angle)
+            angle = max(min(angle, self.front_wheels._max_angle), self.front_wheels._min_angle)
             speed = max(min(speed, 100), -100)
 
             # Set picar angle and speed
             self.front_wheels.turn(angle)
             self.back_wheels.forward()
             self.back_wheels.speed = speed
+
+        self.back_wheels.speed = 0

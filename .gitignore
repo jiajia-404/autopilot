@@ -1,0 +1,14 @@
+*.pyc
+*.log
+*auto_ip.inf
+.vscode
+*.o
+*.mod
+*.a
+*~
+*.so
+*.out
+__pycache__
+.DS_Store
+.idea
+*.egg-info

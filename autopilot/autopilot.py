@@ -66,7 +66,7 @@ class AutoPilot:
             # !! Use machine learning to determine angle and speed (if necessary - you may decide to use fixed speed) !!
 
             speed = 30
-            angle = self.front_wheels._straight_angle
+            angle = 90
 
             # !! End of machine learning !!
 

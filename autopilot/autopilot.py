@@ -9,7 +9,8 @@ import threading
 
 class AutoPilot:
 
-    def __init__(self, capture, front_wheels, back_wheels, camera_control):
+    def __init__(self, capture, front_wheels, back_wheels, camera_control,
+                 debug=False, test_mode=False):
 
         # Try getting camera from already running capture object, otherwise get a new CV2 video capture object
         try:
@@ -22,6 +23,9 @@ class AutoPilot:
         self.front_wheels = front_wheels
         self.back_wheels = back_wheels
         self.camera_control = camera_control
+
+        self.debug = debug
+        self.test_mode = test_mode
 
         # Thread variables
         self._started = False
@@ -66,13 +70,21 @@ class AutoPilot:
 
             # !! End of machine learning !!
 
-            # Do not allow angle or speed to go out of range
-            angle = max(min(angle, self.front_wheels._max_angle), self.front_wheels._min_angle)
-            speed = max(min(speed, 100), -100)
+            angle = int(angle)
+            speed = int(speed)
 
-            # Set picar angle and speed
-            self.front_wheels.turn(angle)
-            self.back_wheels.forward()
-            self.back_wheels.speed = speed
+            if self.debug:
+                print('Speed: %d, angle: %d ' % (angle, speed))
+
+            if not self.test_mode:
+
+                # Do not allow angle or speed to go out of range
+                angle = max(min(angle, self.front_wheels._max_angle), self.front_wheels._min_angle)
+                speed = max(min(speed, 100), -100)
+
+                # Set picar angle and speed
+                self.front_wheels.turn(angle)
+                self.back_wheels.forward()
+                self.back_wheels.speed = speed
 
         self.back_wheels.speed = 0

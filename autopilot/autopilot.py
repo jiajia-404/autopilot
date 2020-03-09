@@ -11,7 +11,7 @@ class AutoPilot:
 
     def __init__(self, capture, front_wheels, back_wheels, camera_control,
                  debug=False, test_mode=False):
-        tf.keras.models.load_model(model_path="/home/pi/SunFounder_PiCar-V/model_epo50.tflite")
+        model=tf.keras.models.load_model(model_path="/home/pi/SunFounder_PiCar-V/model_epo50.tflite")
 
         # Try getting camera from already running capture object, otherwise get a new CV2 video capture object
         try:

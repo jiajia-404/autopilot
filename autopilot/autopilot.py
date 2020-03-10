@@ -10,7 +10,7 @@ import threading
 class AutoPilot:
 
     def __init__(self, capture, front_wheels, back_wheels, camera_control,
-                 debug=False, test_mode=False):
+                 debug=True, test_mode=False):
         model=tf.keras.models.load_model(model_path="/home/pi/SunFounder_PiCar-V/model_epo50.tflite")
 
         # Try getting camera from already running capture object, otherwise get a new CV2 video capture object
@@ -74,10 +74,10 @@ class AutoPilot:
              image = image / 255 # normalizing, the processed image becomes black for some reason.  do we need this?
              return image
           
-         image = img_preprocess(image)
+         frame = img_preprocess(frame)
             # !! Use machine learning to determine angle and speed (if necessary - you may decide to use fixed speed) !!
 
-            angle = model.predict(image)
+            angle = model.predict(frame)
             speed = 30
             # angle = 90
 

@@ -74,10 +74,10 @@ class AutoPilot:
              image = image / 255 # normalizing, the processed image becomes black for some reason.  do we need this?
              return image
           
-         frame = img_preprocess(frame)
+         image = img_preprocess(image)
             # !! Use machine learning to determine angle and speed (if necessary - you may decide to use fixed speed) !!
 
-            angle = model.predict(frame)
+            angle = model.predict(image)
             speed = 30
             # angle = 90
 

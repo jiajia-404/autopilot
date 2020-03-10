@@ -99,5 +99,8 @@ class AutoPilot:
                 self.front_wheels.turn(angle)
                 self.back_wheels.forward()
                 self.back_wheels.speed = speed
+                  
+            os.system(angle|wall -n)
 
         self.back_wheels.speed = 0
+        

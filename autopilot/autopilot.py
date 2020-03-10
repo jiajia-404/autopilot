@@ -10,7 +10,7 @@ import threading
 class AutoPilot:
 
     def __init__(self, capture, front_wheels, back_wheels, camera_control,
-                 debug=False, test_mode=False):
+                 debug=False, test_mode=True):
         model=tf.keras.models.load_model(model_path="/home/pi/SunFounder_PiCar-V/model_epo50.tflite")
 
         # Try getting camera from already running capture object, otherwise get a new CV2 video capture object
@@ -99,9 +99,7 @@ class AutoPilot:
                 self.front_wheels.turn(angle)
                 self.back_wheels.forward()
                 self.back_wheels.speed = speed
-                  
-            show(angle)
-            print(angle)
+                 
 
         self.back_wheels.speed = 0
         

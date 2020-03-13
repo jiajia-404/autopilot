@@ -55,6 +55,15 @@ class AutoPilot:
         self._terminate = True
         if self._thread is not None:
             self._thread.join()
+            
+    def img_preprocess(image):
+             height, _, _ = image.shape
+             image = image[int(height*0.15):,:,:]  # remove top half of the image, as it is not relavant for lane following
+             image = cv2.cvtColor(image, cv2.COLOR_RGB2YUV)  # Nvidia model said it is best to use YUV color space
+             image = cv2.GaussianBlur(image, (3,3), 0)
+             image = cv2.resize(image, (200,120)) # input image size (200,66) Nvidia model
+             image = image / 255 # normalizing, the processed image becomes black for some reason.  do we need this?
+             return image
 
     def _drive(self):
         """
@@ -64,17 +73,8 @@ class AutoPilot:
         while not self._terminate:
             ret, frame = self.camera.read()
             
-
-         def img_preprocess(image):
-             height, _, _ = image.shape
-             image = image[int(height*0.15):,:,:]  # remove top half of the image, as it is not relavant for lane following
-             image = cv2.cvtColor(image, cv2.COLOR_RGB2YUV)  # Nvidia model said it is best to use YUV color space
-             image = cv2.GaussianBlur(image, (3,3), 0)
-             image = cv2.resize(image, (200,120)) # input image size (200,66) Nvidia model
-             image = image / 255 # normalizing, the processed image becomes black for some reason.  do we need this?
-             return image
           
-         frame = img_preprocess(frame)
+            frame = img_preprocess(frame)
             # !! Use machine learning to determine angle and speed (if necessary - you may decide to use fixed speed) !!
             engine = edgetpu.detection.engine.DetectionEngine(model)
             result = engine.DetectWithImage(frame)

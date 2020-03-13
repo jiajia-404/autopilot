@@ -5,7 +5,7 @@
 """
 
 import threading
-
+import edgetpu.detection.engine
 
 class AutoPilot:
 
@@ -76,10 +76,12 @@ class AutoPilot:
           
          frame = img_preprocess(frame)
             # !! Use machine learning to determine angle and speed (if necessary - you may decide to use fixed speed) !!
-
-            angle = model.predict(frame)
+            engine = edgetpu.detection.engine.DetectionEngine(model)
+            result = engine.DetectWithImage(frame)
+            print(result)
+            # angle = model.predict(frame)
             speed = 30
-            # angle = 90
+            angle = result
 
             # !! End of machine learning !!
 
